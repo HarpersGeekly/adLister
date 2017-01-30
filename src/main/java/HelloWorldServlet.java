@@ -5,25 +5,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
 // urlPatterns is a set of paths
-@WebServlet(name = "HelloServlet", urlPatterns = "/hello") /* where the path will be somesite/hello */
+@WebServlet(name = "HelloServlet", urlPatterns = "/hello") /* where the path will be: somesite/hello */
 public class HelloWorldServlet extends HttpServlet {
+    private int counter = 0;
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-//        Object counter = request.getAttribute("counter");
-//        int count;
-//
-//        if (counter != null) {
-//            count = Integer.parseInt((String) counter);
-//            count++;
-//
-//        } else {
-//            count = 1;
-//        }
-//
-//        request.setAttribute("counter", count);
-//        out.println("<p>Page Counter: " + count + "</p>");
-
-
         response.setContentType("text/html");
 
         PrintWriter out = response.getWriter();
@@ -34,8 +20,11 @@ public class HelloWorldServlet extends HttpServlet {
         } else {
             out.println("<h1>Hello World</h1>");
         }
-
         // you could also getServletName() in place of name and delete String name = request getParameter("name")
+        counter += 1;
+        response.getWriter().println("<h3>Number of page visits: " + counter + ".</h3>");
+
+
 
     }
 }
