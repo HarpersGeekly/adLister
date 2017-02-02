@@ -13,8 +13,14 @@ public class MySqlAdsDao implements Ads {
 
 
     public MySqlAdsDao(Config config) {
+        Driver driver;
         try {
-            DriverManager.registerDriver(new Driver());
+            driver = new Driver();
+            DriverManager.registerDriver(driver);
+
+
+            //mysql -u root -p
+            //use database adlister_db
             connection = DriverManager.getConnection(
                     config.getUrl(),
                     config.getUsername(),
