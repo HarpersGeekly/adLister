@@ -20,7 +20,7 @@
             <input id="password" name="password" class="form-control" type="password">
         </div>
         <div class="form-group">
-            <label for="email">Password</label>
+            <label for="email">Email</label>
             <input id="email" name="email" class="form-control" type="text">
         </div>
         <input type="submit" class="btn btn-primary btn-block" value="Register">

@@ -1,5 +1,6 @@
 package com.codeup.adlister.controllers;
 
+import com.codeup.adlister.dao.DaoFactory;
 import com.codeup.adlister.models.User;
 
 import javax.servlet.ServletException;
@@ -13,11 +14,7 @@ import java.io.IOException;
 public class RegisterServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO: show the registration form
-        if (request.getSession().getAttribute("user") != null) {
-            response.sendRedirect("/profile");
-            return;
-        }
-        request.getRequestDispatcher("/register.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -25,18 +22,15 @@ public class RegisterServlet extends HttpServlet {
         String password = request.getParameter("password");
         String email = request.getParameter("email");
         // TODO: ensure the submitted information is valid
-        boolean validAttempt = false;
 
-        if (validAttempt) {
-            request.getSession().setAttribute("user", username);
-            request.getSession().setAttribute("password", password);
-            request.getSession().setAttribute("email", email);
-            response.sendRedirect("/profile");
-        } else {
-        response.sendRedirect("/register");
-    }
         // TODO: create a new user based off of the submitted information
 
+        User user = new User(0, username, email, password);
+
         // TODO: if a user was successfully created, send them to their profile
+
+        DaoFactory.getUsersDao().insert(user);
+        request.getSession().setAttribute("user", username);
+        response.sendRedirect("/profile");
     }
 }
