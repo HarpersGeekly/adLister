@@ -11,7 +11,7 @@ public class ListAdsDao implements Ads {
         return ads;
     }
 
-    public Long insert(Ad ad) {
+    public void insert(Ad ad) {
         // make sure we have ads
         if (ads == null) {
             ads = generateAds();
@@ -20,7 +20,12 @@ public class ListAdsDao implements Ads {
         // really the database would handle this
         ad.setId((long) ads.size());
         ads.add(ad);
-        return ad.getId();
+
+    }
+
+    @Override
+    public Ad find(long id) {
+        return null;
     }
 
     private List<Ad> generateAds() {

@@ -4,10 +4,12 @@ public class Ad {
     private String title;
     private String description;
 
+    // new ad created for the first time
     public Ad(long userId, String title, String description) {
         this(0, userId, title, description);
     }
 
+    // existing ad retrieved from the database
     public Ad(long id, long userId, String title, String description) {
         this.id = id;
         this.userId = userId; //we're not going to use this
