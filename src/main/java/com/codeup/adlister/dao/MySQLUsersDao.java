@@ -50,29 +50,25 @@ public class MySQLUsersDao implements Users {
 
     @Override
     public Long insert(User user) {
-            try {
-                PreparedStatement statement = connection.prepareStatement(createInsertQuery(),
-                        Statement.RETURN_GENERATED_KEYS
-                );
+        String sql = "INSERT INTO users (username, email, password) " +
+                "VALUES (?, ?, ?)";
+        try {
+                PreparedStatement statement = connection.prepareStatement(sql,
+                        Statement.RETURN_GENERATED_KEYS);
+            //bind
                 statement.setString(1, user.getUsername());
                 statement.setString(2, user.getEmail());
                 statement.setString(3, user.getPassword());
+            //execute to get a resultSet
 
                 statement.executeUpdate();
+                ResultSet generatedKeys = statement.getGeneratedKeys();
+                generatedKeys.next();
 
-                ResultSet rs = statement.getGeneratedKeys();
-                rs.next();
-
-                return rs.getLong(1);
+                return generatedKeys.getLong(1);
 
             } catch (SQLException e) {
                 throw new RuntimeException("Error creating a new ad.", e);
             }
     }
-
-    private String createInsertQuery() {
-        return "INSERT INTO users (username, email, password) " +
-                "VALUES (?, ?, ?)";
-    }
-
 }
