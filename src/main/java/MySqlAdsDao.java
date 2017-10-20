@@ -18,11 +18,15 @@ public class MySqlAdsDao implements Ads {
             driver = new Driver();
             DriverManager.registerDriver(driver);
 
-            //mysql -u root -p
-            //use database adlister_db
+            //mysql -u root -p or..
+            //mysql-u adlister_user -p
+            //use adlister_db
             connection = DriverManager.getConnection(
+                    // "jdbc:mysql://localhost/adlister_db",
                     config.getUrl(),
+                    // "adlister_user",
                     config.getUsername(),
+                    // "adlister_pwd"
                     config.getPassword()
             );
         } catch (SQLException e) {
