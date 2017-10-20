@@ -11,7 +11,7 @@ import java.util.List;
 public class MySqlAdsDao implements Ads {
 
     private Connection connection;
-
+    // recipe for everything CRUD:
     public MySqlAdsDao(Config config) {
         Driver driver;
         try {
@@ -33,23 +33,25 @@ public class MySqlAdsDao implements Ads {
             throw new RuntimeException(e);
         }
     }
-
+    //recipe for select:
     // get a list of all the ads
     public List<Ad> all() {
 
-        // select * from ads
+        // select * from ads saved into a String.
         String selectQuery = "SELECT * FROM ads";
 
         // create a new List
         List<Ad> ads = new ArrayList<>();
 
+        //create a new statement from your current DB connection. (Statement is an object interface)
         Statement statement;
         try {
             statement = connection.createStatement();
+            // execute the query and save it in a resultset temporary table.
             ResultSet resultSet = statement.executeQuery(selectQuery);
-
-            while (resultSet.next()) {
-                // add a new Ad object to the ads list inside this loop
+            // iterate through the resultset...while(true or false)...
+            while (resultSet.next()) { //moving to the next available row
+                //transform the result set into a List of models (ads)
                 // use the rs.getLong(), getString(), methods to grab values from the row (in the db)
                 long id = resultSet.getLong("id");
                 long userId = resultSet.getLong("user_id");
@@ -81,7 +83,6 @@ public class MySqlAdsDao implements Ads {
             statement.setString(2,ad.getTitle());
             statement.setString(3,ad.getDescription());
 
-
             statement.executeUpdate();
 
             ResultSet generatedKeys = statement.getGeneratedKeys();
@@ -96,7 +97,7 @@ public class MySqlAdsDao implements Ads {
     }
 
     @Override
-    public Ad find(long id) {
+    public Ad findById(long id) {
         String sql = "SELECT * FROM ads WHERE id = " + id;
 
         try {

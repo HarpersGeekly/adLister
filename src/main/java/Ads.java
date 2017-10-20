@@ -7,5 +7,5 @@ public interface Ads {
     // insert a new ad and return the new ad's id
     void insert(Ad ad);
     //adding a method so that all implementations can find the id:
-    Ad find(long id);
+    Ad findById(long id);
 }

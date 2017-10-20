@@ -22,7 +22,7 @@ public class ViewAdServlet extends HttpServlet {
         //start with the interface..go to the interface Ads
         Ads ads = DaoFactory.getAdsDao();
 
-        Ad ad = ads.find(id);
+        Ad ad = ads.findById(id);
 
         request.setAttribute("ad", ad);
 
